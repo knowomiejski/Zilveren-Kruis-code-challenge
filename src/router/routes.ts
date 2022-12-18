@@ -25,19 +25,27 @@ const routes = [
         children: [
             {
                 path: 'personal',
-                component: PersonalInfoComponent
+                component: PersonalInfoComponent,
+                meta: {
+                    registerStepper: 1
+                }
             },
             {
                 path: 'insurance',
-                component: InsuranceInfoComponent
+                component: InsuranceInfoComponent,
+                meta: {
+                    registerStepper: 2
+            }
             },
             {
                 path: 'review',
-                component: ReviewInfoComponent
+                component: ReviewInfoComponent,
+                meta: {
+                    registerStepper: 3
+                }
             }
         ]
     },
-
 ]
 
 export default routes

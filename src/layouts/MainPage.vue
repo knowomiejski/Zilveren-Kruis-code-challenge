@@ -2,7 +2,7 @@
     <div>
         <HeaderComponent/>
         <RouterView v-slot=" { Component } ">
-            <Transition name="fade" mode="in-out">
+            <Transition name="fade" mode="out-in">
                 <Component :is="Component"></Component>
             </Transition>
         </RouterView>

@@ -10,6 +10,7 @@ export default interface RegistrationFormModel {
         initials: string,
         lastName: string,
         sex: string,
+        dob: Date,
         bsn: string
     },
     insuranceInfo: {

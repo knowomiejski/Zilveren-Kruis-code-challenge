@@ -10,10 +10,11 @@
                 </div>
                 <div
                     class="radio custom-radio radio__option"
-                    @input="$emit('update:modelValue', { name: option.label, price: option.priceNumber } as InsuranceType )"
+                    @input="$emit('update:modelValue', { name: option.label, price: option.price } )"
                 >
                     <input
                         type="radio"
+                        :checked="option.label === modelValue.name"
                         :name="inputName"
                         :id="`${inputName}-${option.optionName}`"
                         class="radio__input custom-control-input"
@@ -26,31 +27,35 @@
                             {{option.label}}
                         </p>
                         <p v-if="option.price" class="radio__price">
-                            {{option.price}}
+                            € {{paymentInterval? (option.price/paymentInterval).toFixed(2) : option.price.toFixed(2)}} {{paymentIntervalLabel ? paymentIntervalLabel : ''}}
                         </p>
                     </label>
                 </div>
             </div>
         </div>
+        <div style="color: red;" v-if="error">{{error}}</div>
     </div>
 </template>
 <script setup lang="ts">
 import type { InsuranceType } from '@/models/InsuranceType';
+import { onMounted, type Ref } from 'vue';
 
 const props = defineProps<{
         inputName: string,
-        modelValue: InsuranceType,
+        modelValue: { name: string, price: number },
         options: {
             optionName: string,
             badge?: string,
             label: string,
-            price: string,
-            priceNumber: number
+            price: number,
         }[]
         label: string,
+        error?: string,
+        paymentInterval?: number,
+        paymentIntervalLabel?: string,
         placeholder?: string,
     }>()
-    defineEmits<{
-        (e: 'update:modelValue', value: InsuranceType): void
-    }>()
+defineEmits<{
+    (e: 'update:modelValue', value: InsuranceType): void
+}>()
 </script>

@@ -1,28 +1,31 @@
 <template>
     <div class="form-input my-4">
-        <label :id="`${inputName}-label`" class="input__title" v-if="label">{{label}}</label>
+        <label :for="inputName" :id="`${inputName}-label`" class="input__title" v-if="label">{{label}}</label>
         <div class="input__group">
-            <select
+            <input
+                :name="inputName"
                 class="form-control"
-                :value="modelValue"
-                @input="$emit('update:modelValue', $event.target.value)"
-                >
-                <option v-for="(option, i) in options">
-                    {{option}}
-                </option>
-            </select>
+                type="date"
+                v-model="dateValue"
+                @input="handleInput()"
+                />
         </div>
     </div>
 </template>
-<script setup lang="ts">
+<script setup lang="ts">import { ref } from 'vue';
+
 const props = defineProps<{
         inputName: string,
-        modelValue: string,
-        options: string[]
+        modelValue: Date,
         label: string,
         placeholder?: string,
     }>()
-    defineEmits<{
-        (e: 'update:modelValue', value: string): void
-    }>()
+const emit = defineEmits<{
+    (e: 'update:modelValue', value: Date): void
+}>()
+
+const dateValue = ref(props.modelValue.toISOString().split('T')[0])
+const handleInput = () => {
+    emit('update:modelValue', new Date(dateValue.value))
+}
 </script>

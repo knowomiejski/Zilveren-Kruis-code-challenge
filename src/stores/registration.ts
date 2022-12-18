@@ -16,12 +16,13 @@ export const useRegistrationFormStore = defineStore({
                 initials: '',
                 lastName: '',
                 sex: 'Man',
+                dob: new Date('1998-06-23'),
                 bsn: ''
             },
             insuranceInfo: {
-                insuranceType: insuranceTypes[0],
+                insuranceType: insuranceTypes[1],
                 paymentInterval: 'per jaar',
-                personalRisk: { description: '€ 385 - verplicht eigen risico', price: 385} as PersonalRiskType,
+                personalRisk: { description: '€ 385 - verplicht eigen risico', amount: 385} as PersonalRiskType,
                 aditional: { description: 'Geen aanvullende verzekering geselecteerd', type: 'additional', price: 0} as AdditionalInsuranceType,
                 dentist: { description: 'Geen tandartsverzekering geselecteerd', type: 'dentist', price: 0} as AdditionalInsuranceType
             },
@@ -31,6 +32,11 @@ export const useRegistrationFormStore = defineStore({
             }
         } as RegistrationFormModel
     }),
+    actions: {
+        sendToServer() {
+            console.log('sending...', this.registrationFormData)
+        }
+    },
     getters: {
         fullName ():string {
             return `${this.registrationFormData.personalInfo.initials} ${this.registrationFormData.personalInfo.lastName}`

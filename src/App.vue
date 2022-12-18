@@ -4,8 +4,3 @@
     </div>
 </template>
 
-<style>
-input:focus, textarea:focus, select:focus {
-    outline: none;
-}
-</style>
